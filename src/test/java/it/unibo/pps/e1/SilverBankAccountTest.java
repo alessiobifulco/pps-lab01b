@@ -6,10 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SilverBankAccountTest extends BankAccountTest{
 
+    private static final int FEE = 1;
+
     @Test
     public void testCannotWithdrawMoreThanAvailable(){
-        this.account.deposit(1000);
-        assertThrows(IllegalStateException.class, () -> this.account.withdraw(1200));
+        int amount = 1000;
+        int withdraw = 1200;
+        this.account.deposit(amount);
+        assertThrows(IllegalStateException.class, () -> this.account.withdraw(withdraw));
     }
 
     @Override
@@ -18,7 +22,12 @@ public class SilverBankAccountTest extends BankAccountTest{
     }
 
     @Override
+    protected int getAmountToFail() {
+        return 1500;
+    }
+
+    @Override
     protected int getCalculatedFee(int amount) {
-        return 1;
+        return FEE;
     }
 }

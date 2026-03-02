@@ -3,7 +3,6 @@ package it.unibo.pps.e1;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GoldBankAccountTest extends BankAccountTest {
 
@@ -17,15 +16,15 @@ public class GoldBankAccountTest extends BankAccountTest {
         return 0;
     }
 
-    @Test
-    public void testCannotWithdrawMoreThanAvailable(){
-        assertThrows(IllegalStateException.class, () -> this.account.withdraw(501));
+    @Override
+    protected int getAmountToFail() {
+        return 1600;
     }
 
     @Test
-    public void testCanWithdrawTillNegativeValue(){
+    public void testCanWithdrawTillNegativeValue() {
         int amount = 500;
         this.account.withdraw(amount);
-        assertEquals(-500, this.account.getBalance());
+        assertEquals(-amount, this.account.getBalance());
     }
 }

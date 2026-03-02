@@ -3,6 +3,7 @@ package it.unibo.pps.e1;
 public class BronzeBankAccount implements BankAccount{
 
     private final BankAccount base;
+    private static final int THRESHOLD = 100;
 
     public BronzeBankAccount(BankAccount account){
         this.base = account;
@@ -15,16 +16,18 @@ public class BronzeBankAccount implements BankAccount{
 
     @Override
     public void withdraw(int amount) {
-        int fee = (amount < 100) ? 0 : 1;
+        int fee = amount < THRESHOLD ? 0 : 1;
         int totalAmount = amount + fee;
-        if (base.getBalance() < totalAmount) {
+        if (this.base.getBalance() < totalAmount) {
             throw new IllegalStateException();
         }
-        base.withdraw(totalAmount);
+        this.base.withdraw(totalAmount);
     }
 
     @Override
     public int getBalance() {
-        return base.getBalance();
+        return this.base.getBalance();
     }
+
+
 }

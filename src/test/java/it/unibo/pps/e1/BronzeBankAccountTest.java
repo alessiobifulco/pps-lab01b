@@ -13,6 +13,11 @@ public class BronzeBankAccountTest extends BankAccountTest {
     }
 
     @Override
+    protected int getAmountToFail() {
+        return 1500;
+    }
+
+    @Override
     protected int getCalculatedFee(int amount) {
         return amount < 100 ? 0 : 1;
     }

@@ -3,6 +3,7 @@ package it.unibo.pps.e1;
 public class GoldBankAccount implements BankAccount{
 
     private final BankAccount base;
+    private static final int NEGATIVE_AMOUNT_VALID = -500;
 
     public GoldBankAccount(BankAccount bankAccount){
         this.base = bankAccount;
@@ -14,7 +15,7 @@ public class GoldBankAccount implements BankAccount{
 
     @Override
     public void withdraw(int amount) {
-        if ((base.getBalance() - amount) < -500){
+        if ((base.getBalance() - amount) < NEGATIVE_AMOUNT_VALID){
             throw new IllegalStateException();
         }
         this.base.withdraw(amount);
@@ -24,4 +25,5 @@ public class GoldBankAccount implements BankAccount{
     public int getBalance() {
         return this.base.getBalance();
     }
+
 }
