@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GoldBankAccountTest extends BankAccountTest {
 
+    private static final int AMOUNT_TO_FAIL = 1600;
+
+
     @Override
     protected BankAccount getAccount() {
         return new GoldBankAccount(new CoreBankAccount());
@@ -18,7 +21,7 @@ public class GoldBankAccountTest extends BankAccountTest {
 
     @Override
     protected int getAmountToFail() {
-        return 1600;
+        return AMOUNT_TO_FAIL;
     }
 
     @Test

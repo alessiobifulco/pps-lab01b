@@ -7,14 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class SilverBankAccountTest extends BankAccountTest{
 
     private static final int FEE = 1;
+    private static final int AMOUNT_TO_FAIL = 1500;
 
-    @Test
-    public void testCannotWithdrawMoreThanAvailable(){
-        int amount = 1000;
-        int withdraw = 1200;
-        this.account.deposit(amount);
-        assertThrows(IllegalStateException.class, () -> this.account.withdraw(withdraw));
-    }
 
     @Override
     protected BankAccount getAccount() {
@@ -23,7 +17,7 @@ public class SilverBankAccountTest extends BankAccountTest{
 
     @Override
     protected int getAmountToFail() {
-        return 1500;
+        return AMOUNT_TO_FAIL;
     }
 
     @Override

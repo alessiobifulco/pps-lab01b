@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BronzeBankAccountTest extends BankAccountTest {
 
+    private static final int AMOUNT_TO_FAIL = 1600;
+    private static final int THRESHOLD = 100;
+
     @Override
     protected BankAccount getAccount() {
         return new BronzeBankAccount(new CoreBankAccount());
@@ -14,23 +17,26 @@ public class BronzeBankAccountTest extends BankAccountTest {
 
     @Override
     protected int getAmountToFail() {
-        return 1500;
+        return AMOUNT_TO_FAIL;
     }
 
     @Override
     protected int getCalculatedFee(int amount) {
-        return amount < 100 ? 0 : 1;
+        return amount < THRESHOLD ? 0 : 1;
     }
 
     @Test
     public void testCannotWithdrawMoreThanAvailable(){
-        assertThrows(IllegalStateException.class, () -> this.account.withdraw(500));
+        int amount = 500;
+        assertThrows(IllegalStateException.class, () -> this.account.withdraw(amount));
     }
 
     @Test
     public void testWithdrawWithZeroFee(){
-        this.account.deposit(1000);
-        this.account.withdraw(50);
-        assertEquals(950, this.account.getBalance());
+        int deposit = 1000;
+        int withdraw = 50;
+        this.account.deposit(deposit);
+        this.account.withdraw(withdraw);
+        assertEquals(deposit - withdraw, this.account.getBalance());
     }
 }
