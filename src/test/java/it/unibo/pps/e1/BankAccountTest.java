@@ -25,7 +25,19 @@ public abstract class BankAccountTest {
         assertEquals(1000, this.account.getBalance());
     }
 
+    @Test
+    public void testCanWithdraw() {
+        int amount = 1000;
+        int withdraw = 200;
+        this.account.deposit(amount);
+        this.account.withdraw(withdraw);
+        int fee = getCalculatedFee(amount);
+        assertEquals(amount - withdraw - fee, this.account.getBalance());
+    }
+
     protected abstract BankAccount getAccount();
+
+    protected abstract int getCalculatedFee(int amount);
 
 
 }

@@ -12,11 +12,9 @@ public class GoldBankAccountTest extends BankAccountTest {
         return new GoldBankAccount(new CoreBankAccount());
     }
 
-    @Test
-    public void testCanWithdraw() {
-        this.account.deposit(1000);
-        this.account.withdraw(200);
-        assertEquals(800, this.account.getBalance());
+    @Override
+    protected int getCalculatedFee(int amount) {
+        return 0;
     }
 
     @Test

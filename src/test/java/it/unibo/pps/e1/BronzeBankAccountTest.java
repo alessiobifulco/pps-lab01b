@@ -12,11 +12,9 @@ public class BronzeBankAccountTest extends BankAccountTest {
         return new BronzeBankAccount(new CoreBankAccount());
     }
 
-    @Test
-    public void testCanWithdraw() {
-        this.account.deposit(1000);
-        this.account.withdraw(200);
-        assertEquals(799, this.account.getBalance());
+    @Override
+    protected int getCalculatedFee(int amount) {
+        return amount < 100 ? 0 : 1;
     }
 
     @Test
