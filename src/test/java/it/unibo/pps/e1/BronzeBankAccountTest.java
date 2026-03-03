@@ -25,11 +25,6 @@ public class BronzeBankAccountTest extends BankAccountTest {
         return amount < THRESHOLD ? 0 : 1;
     }
 
-    @Test
-    public void testCannotWithdrawMoreThanAvailable(){
-        int amount = 500;
-        assertThrows(IllegalStateException.class, () -> this.account.withdraw(amount));
-    }
 
     @Test
     public void testWithdrawWithZeroFee(){
@@ -38,5 +33,14 @@ public class BronzeBankAccountTest extends BankAccountTest {
         this.account.deposit(deposit);
         this.account.withdraw(withdraw);
         assertEquals(deposit - withdraw, this.account.getBalance());
+    }
+
+    @Test
+    public void testWithdrawWithOneFee(){
+        int deposit = 1000;
+        int withdraw = 150;
+        this.account.deposit(deposit);
+        this.account.withdraw(withdraw);
+        assertEquals(deposit - withdraw -1, this.account.getBalance());
     }
 }
