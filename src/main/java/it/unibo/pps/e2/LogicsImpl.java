@@ -1,7 +1,5 @@
 package it.unibo.pps.e2;
 
-import java.util.*;
-
 public class LogicsImpl implements Logics {
 	
 	private final Pair<Integer,Integer> pawn;

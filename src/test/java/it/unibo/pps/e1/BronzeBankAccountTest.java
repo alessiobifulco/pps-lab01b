@@ -3,7 +3,6 @@ package it.unibo.pps.e1;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BronzeBankAccountTest extends BankAccountTest {
 

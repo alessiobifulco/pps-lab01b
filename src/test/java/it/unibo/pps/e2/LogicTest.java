@@ -2,7 +2,6 @@ package it.unibo.pps.e2;
 import org.junit.jupiter.api.*;
 
 import java.util.Random;
-import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,17 +62,17 @@ public class LogicTest {
 
     @Test
     public void testRandomKnightMoves() {
-        IntStream.range(0, 10).forEach(i -> {
-            Pair<Integer, Integer> randomTarget = new Pair<>(random.nextInt(SIZE), random.nextInt(SIZE));
-            boolean isLMove = isValidKnightMove(this.posKnight, randomTarget);
-            boolean expectedHit = isLMove && randomTarget.equals(this.posPawn);
-            boolean actualHit = logics.hit(randomTarget.getX(), randomTarget.getY());
+        for (int i = 0; i < 10; i++) {
+            Pair<Integer, Integer> randomPosition = new Pair<>(random.nextInt(SIZE), random.nextInt(SIZE));
+            boolean isLMove = isValidKnightMove(this.posKnight, randomPosition);
+            boolean expectedHit = isLMove && randomPosition.equals(this.posPawn);
+            boolean actualHit = logics.hit(randomPosition.getX(), randomPosition.getY());
             assertEquals(expectedHit, actualHit);
             if (isLMove) {
-                this.posKnight = randomTarget;
+                this.posKnight = randomPosition;
             }
             assertTrue(logics.hasKnight(this.posKnight.getX(), this.posKnight.getY()));
-        });
+        }
     }
 
     private boolean isValidKnightMove(Pair<Integer, Integer> start, Pair<Integer, Integer> end) {
