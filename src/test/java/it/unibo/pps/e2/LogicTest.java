@@ -75,6 +75,14 @@ public class LogicTest {
         }
     }
 
+    @Test
+    public void testHitOutOfBoundsThrowsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> logics.hit(-1, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> logics.hit(2, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> logics.hit(SIZE, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> logics.hit(2, SIZE));
+    }
+
     private boolean isValidKnightMove(Pair<Integer, Integer> start, Pair<Integer, Integer> end) {
         int dx = Math.abs(start.getX() - end.getX());
         int dy = Math.abs(start.getY() - end.getY());

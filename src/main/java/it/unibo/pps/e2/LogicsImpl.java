@@ -16,26 +16,19 @@ public class LogicsImpl implements Logics {
         this.board = new BoardImpl(size);
         this.knight = new KnightImpl(posKnight);
         this.pawn = posPawn;
-
     }
     
 	private final Pair<Integer,Integer> randomEmptyPosition(){
         Pair<Integer,Integer> position = this.board.getRandomPosition();
     	// the recursive call below prevents clash with an existing pawn
         return this.pawn != null && this.pawn.equals(position) ? randomEmptyPosition() : position;}
-    
-	@Override
-	public boolean hit(int row, int col) {
+
+    @Override
+    public boolean hit(int row, int col) {
         Pair<Integer, Integer> position = new Pair<>(row, col);
-        if (!this.board.isInBoard(position)) {
-            throw new IndexOutOfBoundsException();
-        }
-        if (this.knight.canMoveTo(position)) {
-            this.knight.moveTo(position);
-            return this.pawn.equals(this.knight.getPosition());
-        }
-        return false;
-	}
+        checkBounds(position);
+        return tryMoveAndCapture(position);
+    }
 
 	@Override
 	public boolean hasKnight(int row, int col) {
@@ -46,4 +39,18 @@ public class LogicsImpl implements Logics {
 	public boolean hasPawn(int row, int col) {
 		return this.pawn.equals(new Pair<>(row,col));
 	}
+
+    private void checkBounds(Pair<Integer, Integer> position) {
+        if (!this.board.isInBoard(position)) {
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
+    private boolean tryMoveAndCapture(Pair<Integer, Integer> position) {
+        if (this.knight.canMoveTo(position)) {
+            this.knight.moveTo(position);
+            return this.pawn.equals(this.knight.getPosition());
+        }
+        return false;
+    }
 }
